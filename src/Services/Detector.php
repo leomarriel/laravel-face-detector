@@ -23,13 +23,13 @@ class Detector extends AbstractFaceDetector
     protected function initializeDefaults()
     {
         $this->libraryFile = base_path() . '/vendor/leomarriel/laravel-face-detector/src/Library/facedetector.dat';
-        
+
         if (!is_file($this->libraryFile)) {
             throw new NotValidLibraryException(
                 "This Library ({$this->libraryFile}) is not a valid."
             );
         }
-        
+
         $this->libraryFile = unserialize(file_get_contents($this->libraryFile));
     }
 
@@ -68,7 +68,7 @@ class Detector extends AbstractFaceDetector
                 $red = ($rgb >> 16) & 0xFF;
                 $green = ($rgb >> 8) & 0xFF;
                 $blue = $rgb & 0xFF;
-                $grey = (0.2989*$red + 0.587*$green + 0.114*$blue)>>0;
+                $grey = (int) (0.2989*$red + 0.587*$green + 0.114*$blue)>>0;
                 $rowsum += $grey;
                 $rowsum2 += $grey*$grey;
 
@@ -89,10 +89,10 @@ class Detector extends AbstractFaceDetector
         $start_scale = $s_h < $s_w ? $s_h : $s_w;
         $scale_update = 1 / 1.2;
         for ($scale = $start_scale; $scale > 1; $scale *= $scale_update) {
-            $w = (20*$scale) >> 0;
+            $w = (int) (20*$scale) >> 0;
             $endx = $width - $w - 1;
             $endy = $height - $w - 1;
-            $step = max($scale, 2) >> 0;
+            $step = (int) max($scale, 2) >> 0;
             $inv_area = 1 / ($w*$w);
             for ($y = 0; $y < $endy; $y += $step) {
                 for ($x = 0; $x < $endx; $x += $step) {
@@ -145,7 +145,7 @@ class Detector extends AbstractFaceDetector
                     $count_rects = count($rects);
 
                     for ($i_rect = 0; $i_rect < $count_rects; $i_rect++) {
-                        $s = $scale;
+                        $s = (int) $scale;
                         $rect = $rects[$i_rect];
                         $rx = ($rect[0]*$s+$x)>>0;
                         $ry = ($rect[1]*$s+$y)>>0;
