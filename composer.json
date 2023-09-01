@@ -1,0 +1,34 @@
+{
+    "name": "leomarriel/laravel-face-detector",
+    "description": "A Face Detector for Laravel",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["laravel", "face", "detector", "detection"],
+    "authors": [
+        {
+            "name": "Leonardo Marriel Jr",
+            "email": "leomarriel@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Leomarriel\\FaceDetector\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^10"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Leomarriel\\FaceDetector\\FaceDetectorServiceProvider"
+            ],
+            "aliases": {
+                "FaceDetector": "Leomarriel\\FaceDetector\\Facades\\FaceDetector"
+            }
+        }
+    }
+}
